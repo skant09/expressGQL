@@ -1,4 +1,4 @@
-import express, { Application, Request, Response, NextFunction } from "express";
+import express, { Application, Request, Response, NextFunction, response } from "express";
 import graphqlHTTP from 'express-graphql';
 import { buildSchema } from 'graphql';
 import schema from './schema';
@@ -12,8 +12,8 @@ var root = {
   },
 };
 
-const fetchItem = (id: number) => fetch(`https://devapi.zivame.com/api/v2/productvm/{id}`)
-  .then(response => response.json())
+const fetchItem = (id: number) => fetch(`https://devapi.zivame.com/api/v2/productvm/${id}`)
+  .then(response => response.json()).then(response => response.data.summary)
 
 app.use('/graphql', graphqlHTTP({
   schema: schema,

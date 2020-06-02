@@ -3,26 +3,20 @@ import {
     GraphQLObjectType,
     GraphQLInt,
     GraphQLString,
-    GraphQLList
+    GraphQLList,
+    GraphQLID,
+    graphql
 } from 'graphql';
 import { query } from 'express';
 import { resolve } from 'dns';
 
-const ItemType = new GraphQLObjectType({
-    name: 'Item',
+const ProductType = new GraphQLObjectType({
+    name: 'Product',
     description: '...',
 
     fields: () => ({
-        keyword: {
-            type: GraphQLString,
-            args: {
-                lang: { type: GraphQLString }
-            },
-            resolve: (xml, args) => {
-                const title = xml.GoodreadsResponse.book[0].title[0]
-                return args.lang
-            }
-        }
+        id: { type: GraphQLID },
+        sku: { type: GraphQLString }
     })
 })
 
@@ -33,20 +27,19 @@ const schema = new GraphQLSchema({
         fields: () => ({
             product: {
                 name: 'product',
-                type: GraphQLString,
-                resolve: (root, context, args) => {
-                    console.log(root, context, args)
-                    return '123'
+                type: ProductType,
+                args: {
+                    id: { type: GraphQLID }
+                },
+                async resolve(root, { args }, { fetchItem }) {
+                    if (args === "1") {
+                        return { id: 123, sku: "Zivame" }
+                    }
+                    let product = await fetchItem(144697);
+                    console.log(product);
+                    return product;
                 }
-            },
-            productName: {
-                name: 'product',
-                type: GraphQLString,
-                resolve: (root, context, args) => {
-                    console.log(root, context, args)
-                    return 'zivame'
-                }
-            },
+            }
         })
     })
 })
