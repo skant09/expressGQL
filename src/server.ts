@@ -2,7 +2,6 @@ import express, { Application, Request, Response, NextFunction, response } from 
 import graphqlHTTP from 'express-graphql';
 import { buildSchema } from 'graphql';
 import schema from './schema';
-import fetch from 'node-fetch';
 
 const app: Application = express();
 // The root provides a resolver function for each API endpoint
@@ -12,15 +11,10 @@ var root = {
   },
 };
 
-const fetchItem = (id: number) => fetch(`https://devapi.zivame.com/api/v2/productvm/${id}`)
-  .then(response => response.json()).then(response => response.data.summary)
 
 app.use('/graphql', graphqlHTTP({
   schema: schema,
   rootValue: root,
-  context: {
-    fetchItem
-  },
   graphiql: true,
 }));
 

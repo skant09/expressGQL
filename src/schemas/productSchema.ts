@@ -7,8 +7,9 @@ import {
     GraphQLBoolean,
     GraphQLFloat
 } from 'graphql';
+import fetch from 'node-fetch';
 
-const ProductType = new GraphQLObjectType({
+const ProductSchema = new GraphQLObjectType({
     name: 'Product',
     description: 'Product description',
 
@@ -46,4 +47,7 @@ const ProductType = new GraphQLObjectType({
     })
 })
 
-export default ProductType;
+export const productResolver = (id: number) => fetch(`https://devapi.zivame.com/api/v2/productvm/${id}`)
+  .then(response => response.json()).then(response => response.data.summary)
+
+export default ProductSchema;
