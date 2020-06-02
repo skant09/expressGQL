@@ -1,17 +1,23 @@
 {
-  "name": "graphql",
+  "name": "expressGQL",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node ./src/server.ts",
+    "start": "tsc-watch --onSuccess 'ts-node ./src/server.ts'",
     "build": "tsc -p ."
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "apollo-server-express": "~2.14.1",
+    "body-parser": "~1.19.0",
     "express": "~4.17.1",
+    "express-graphql": "^0.9.0",
+    "graphql": "~15.0.0",
+    "graphql-tools": "~6.0.5",
+    "node-fetch": "^2.6.0",
     "yarn": "~1.22.4"
   },
   "devDependencies": {
@@ -19,6 +25,7 @@
     "@types/node": "~14.0.6",
     "nodemon": "~2.0.4",
     "ts-node": "~8.10.2",
+    "tsc-watch": "^4.2.8",
     "tslint": "~6.1.2",
     "typescript": "~3.9.3"
   }
