@@ -1,12 +1,4 @@
-import {
-    GraphQLObjectType,
-    GraphQLInt,
-    GraphQLString,
-    GraphQLID,
-    GraphQLEnumType,
-    GraphQLBoolean,
-    GraphQLFloat
-} from 'graphql';
+import { GraphQLBoolean, GraphQLEnumType, GraphQLFloat, GraphQLID, GraphQLInt, GraphQLObjectType, GraphQLString } from 'graphql';
 import fetch from 'node-fetch';
 
 const ProductSchema = new GraphQLObjectType({

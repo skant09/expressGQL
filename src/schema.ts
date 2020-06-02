@@ -1,18 +1,5 @@
-import {
-    GraphQLSchema,
-    GraphQLObjectType,
-    GraphQLInt,
-    GraphQLString,
-    GraphQLList,
-    GraphQLID,
-    graphql,
-    GraphQLEnumType,
-    GraphQLBoolean,
-    GraphQLFloat
-} from 'graphql';
-import { query } from 'express';
-import { resolve } from 'dns';
-import { url } from 'inspector';
+import { GraphQLID, GraphQLObjectType, GraphQLSchema } from 'graphql';
+import configSchema, { configResolver } from './schemas/configSchema';
 import ProductSchema, { productResolver } from './schemas/productSchema';
 import recommendationSchema, { recommendationResolver } from './schemas/recommendationSchema';
 
@@ -43,7 +30,16 @@ const schema = new GraphQLSchema({
                     return await recommendationResolver(productId);
                 }
             },
-
+            config: {
+                name: 'Web config',
+                description: 'Config from mAdmin',
+                type: configSchema,
+                args: {
+                },
+                async resolve(root) {
+                    return await configResolver();
+                }
+            }
         })
     })
 });

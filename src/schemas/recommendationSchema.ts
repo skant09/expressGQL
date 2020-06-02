@@ -1,13 +1,4 @@
-import {
-    GraphQLObjectType,
-    GraphQLInt,
-    GraphQLString,
-    GraphQLID,
-    GraphQLEnumType,
-    GraphQLBoolean,
-    GraphQLFloat,
-    GraphQLList
-} from 'graphql';
+import { GraphQLInt, GraphQLList, GraphQLObjectType } from 'graphql';
 import fetch from 'node-fetch';
 import ProductSchema from './productSchema';
 
